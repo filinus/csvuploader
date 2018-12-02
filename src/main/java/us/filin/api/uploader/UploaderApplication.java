@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class UploaderApplication {
 
     public static void main(String[] args) {
-        log.info("Starting REST with args {}", args);
+        log.info("Starting REST with args");
         SpringApplication.run(UploaderApplication.class, args);
     }
 

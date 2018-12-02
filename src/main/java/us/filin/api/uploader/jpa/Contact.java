@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.UUID;
 

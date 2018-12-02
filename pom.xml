@@ -9,7 +9,14 @@
     <packaging>jar</packaging>
 
     <name>uploader</name>
-    <description>Demo project for Spring Boot</description>
+    <developers>
+        <developer>
+            <name>Val Filin</name>
+            <email>nospam...val@filin.us</email>
+            <organization>filin.us</organization>
+        </developer>
+    </developers>
+    <description>Configurable CSV Uploader Spring Boot App</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -28,19 +35,10 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-rest-webmvc</artifactId>
-            <version>3.0.9.RELEASE</version>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -49,7 +47,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
-            <version>1.5</version>
+            <version>1.6</version>
         </dependency>
 
         <dependency>
@@ -91,20 +89,10 @@
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-
-
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
             <version>2.9.6</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>2.21.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
