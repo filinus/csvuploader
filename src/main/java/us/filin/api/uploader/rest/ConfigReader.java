@@ -2,9 +2,10 @@ package us.filin.api.uploader.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -22,16 +23,26 @@ public class ConfigReader {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Value("${csvconfigdir}")
+    @Getter
+    private String csvConfigDir;
+
+    public Resource getCustomerResource(String customer) {
+        return applicationContext.getResource(
+                "file:"+csvConfigDir + "/" + customer+".csvconfig.yaml");
+    }
+
     public ObjectMapper getMapper() {
         return new ObjectMapper(new YAMLFactory());
     }
 
     static Pattern BAD_CHARACTERS = Pattern.compile("\\W");
+
     public String getCsvFileByCustomer(String customer) throws CustomerConfigNotFoundException, IOException {
         if (BAD_CHARACTERS.matcher(customer).matches()) {
             throw new CustomerConfigNotFoundException("bad characters in customer name");
         }
-        Resource resource = applicationContext.getResource("file:"+customer+".csvconfig.yaml");
+        Resource resource = getCustomerResource(customer);
         File file = resource.getFile();
         if (!file.exists() || !file.isFile()) {
             throw new CustomerConfigNotFoundException("csv file not found, or not a true file");

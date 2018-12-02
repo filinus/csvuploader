@@ -1,6 +1,7 @@
 package us.filin.api.uploader.rest;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -77,7 +78,7 @@ public class UploadControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
+    @Test @Ignore
     public void doUploadTest415() throws Exception {
         // Mock Request
         MockMultipartFile csvFile = new MockMultipartFile(

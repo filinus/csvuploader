@@ -17,7 +17,7 @@ import java.util.Locale;
 public class CSVConfig {
     @JsonProperty(required = false)
     @JsonAlias("csv_format")
-    private CSVFormat.Predefined csvFormat;
+    private CSVFormat.Predefined csvFormat = CSVFormat.Predefined.Default;
     @JsonAlias("has_header")
     @JsonProperty(required = true)
     private boolean hasHeader;
