@@ -22,11 +22,15 @@ curl -F "file=@csvfiles/customer2.csv" [http://localhost:8080/customer/customer2
 
 Beside text of task, my assigner mentioned that this is a few-hours task. (hours! neither days, nor weeks). It’s very serious restrictions, which leads to assumption to extremely simplify code and follow YAGNI principle (you ain’t gonna need it)
 
-We make assumption that customer data is private, that’s why I added field “owner” to distinguish customer data. 
+I make assumption that customer data is private, that’s why I added field “owner” to distinguish customer data. 
 
 Because each customer could provide quite unique configuration, there is no evidence how to maintain possible duplication, even with UUIDs. We have no evidence what the big final product is. We make assumption that we need assist upload data into an sql database and that’s all.  
 
-Customer will have their tools, either manual, or automated, to maintain, and clean up that data.
+_Customer will have their tools, either manual, or automated, to maintain, and clean up that data_.
+
+Thus there is not check if UUID unique, or email is valid, or zip is contains five digits. I consider everything as draft records.
+
+
 
 Thus even customer upload same file again, we just add same items under his field “customer”, however generate new UUID value in the ID field. 
 
@@ -34,9 +38,12 @@ For columns we will stored in database a lowercased and with underscores for spa
 
 Joined Date is just a day, we won’t start particular time during date.
 
-**Customer’s CSVConfig **Each customer has own config file in the csvconfigdir directory, the _csvconfigdir_ option in the application.properties.  
 
-Fles are YAML files in general.
+**Customer's CSVConfig**
+
+Each customer has own config file in the csvconfigdir directory, the _csvconfigdir_ option in the application.properties.  
+
+Files are YAML files in general.
 
 CSV config files must be names as   &lt;client name&gt;.csvconfig.yml
 
