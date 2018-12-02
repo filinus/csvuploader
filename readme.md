@@ -13,9 +13,9 @@ mvn clean compile test spring-boot:run
 
 Example:   
 ```bash
-curl -F "file=@csvfiles/customer1.csv" [http://localhost:8080/customer/customer1/contact/upload](http://localhost:8080/customer/customer1/contact/upload)  
+curl -F "file=@csvfiles/customer1.csv" http://localhost:8080/customer/customer1/contact/upload
 
-curl -F "file=@csvfiles/customer2.csv" [http://localhost:8080/customer/customer2/contact/upload](http://localhost:8080/customer/customer2/contact/upload)
+curl -F "file=@csvfiles/customer2.csv" http://localhost:8080/customer/customer2/contact/upload
 ```
 
 ```
@@ -119,13 +119,13 @@ _POST /customer/{customer}/contact/upload_
 
 If we would extend this, for example we can build a request like
 
-GET /customer/{customer} get customer itself
+_GET /customer/{customer}_ get customer itself
 
-GET /customer/{customer}/contact -- all customer’s contact  
+_GET /customer/{customer}/contact_ -- all customer’s contact  
 
-GET /customer/{customer}/contact/{id} -- get specific customer’s contact  
+_GET /customer/{customer}/contact/{id}_ -- get specific customer’s contact  
 
-DELETE /customer/{customer}/contact -- delete specific customer’s contact  
+_DELETE /customer/{customer}/contact_ -- delete specific customer’s contact  
   
 
 **POST  /customer/{customerN}/contact/upload.**
@@ -137,7 +137,7 @@ For path customer variable you should have correspond file customerN.csvconfig.y
 
 **Examples of CSVConfigs:**
 
-/csvconfigdir/customer1.csvconfig.yaml
+_/csvconfigdir/customer1.csvconfig.yaml_
 ```yaml
 csv_format: Default
 has_header: yes
@@ -151,7 +151,7 @@ fields:
     language_tag: en
 ```
 
-/csvconfigdir/customer2.csvconfig.yaml
+_/csvconfigdir/customer2.csvconfig.yaml_
 ```yaml
 csv_format: Excel
 has_header: no
