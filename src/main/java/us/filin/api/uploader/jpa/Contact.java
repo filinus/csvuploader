@@ -20,13 +20,13 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(
-    name = "contact",
-    indexes = {
-            @Index(name = "owner", columnList = "owner", unique = false),
-            @Index(name = "uuid", columnList = "uuid", unique = false),
-            @Index(name = "joined_date", columnList = "joined_date", unique = false),
-            @Index(name = "name", columnList = "last_name,first_name,middle_initial", unique = false)
-    }
+        name = "contact",
+        indexes = {
+                @Index(name = "owner", columnList = "owner", unique = false),
+                @Index(name = "uuid", columnList = "uuid", unique = false),
+                @Index(name = "joined_date", columnList = "joined_date", unique = false),
+                @Index(name = "name", columnList = "last_name,first_name,middle_initial", unique = false)
+        }
 )
 public class Contact {
     private static final long serialVersionUID = 1L;

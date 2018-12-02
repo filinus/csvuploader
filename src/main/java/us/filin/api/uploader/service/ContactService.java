@@ -21,83 +21,83 @@ import java.util.UUID;
 @Transactional
 @Slf4j
 public class ContactService {
-	private ContactRepository contactRepository;
+    private ContactRepository contactRepository;
 
-	@Autowired
-	public ContactService(ContactRepository contactRepository) {
-		this.contactRepository = contactRepository;
-	}
+    @Autowired
+    public ContactService(ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
+    }
 
-	public void upload(CSVParser csvParser, CSVConfig csvConfig) throws ParseException, IllegalArgumentException {
-		boolean hasHeader = csvConfig.isHasHeader();
-		List<Contact> contacts = new LinkedList<>();
+    public void upload(CSVParser csvParser, CSVConfig csvConfig) throws ParseException, IllegalArgumentException {
+        boolean hasHeader = csvConfig.isHasHeader();
+        List<Contact> contacts = new LinkedList<>();
 
-		for(CSVRecord csvRecord: csvParser) {
-			if (hasHeader) {
-				hasHeader = false;
-				continue;
-			}
-			checkRequired(csvRecord, csvConfig);
-			Contact contact = csvRecordToContact(csvRecord, csvConfig);
-			contacts.add(contact);
-		}
-		contactRepository.saveAll(contacts);
-		contactRepository.flush();
-	}
+        for (CSVRecord csvRecord : csvParser) {
+            if (hasHeader) {
+                hasHeader = false;
+                continue;
+            }
+            checkRequired(csvRecord, csvConfig);
+            Contact contact = csvRecordToContact(csvRecord, csvConfig);
+            contacts.add(contact);
+        }
+        contactRepository.saveAll(contacts);
+        contactRepository.flush();
+    }
 
 
-	private void checkRequired(CSVRecord csvRecord, CSVConfig csvConfig) throws IllegalArgumentException {
-		for (CSVConfig.Field field : csvConfig.allPositioned()) {
-			if (field.getPosition()>csvRecord.size()) {
-				throw new IllegalArgumentException("to few columns in the CSV, refer with the CSVConfig: "+csvConfig);
-			}
+    private void checkRequired(CSVRecord csvRecord, CSVConfig csvConfig) throws IllegalArgumentException {
+        for (CSVConfig.Field field : csvConfig.allPositioned()) {
+            if (field.getPosition() > csvRecord.size()) {
+                throw new IllegalArgumentException("to few columns in the CSV, refer with the CSVConfig: " + csvConfig);
+            }
 
-			String stringValue = csvRecord.get(field.getIndex());
+            String stringValue = csvRecord.get(field.getIndex());
 
-			if (StringUtils.isEmpty(stringValue) && field.isRequired()) {
-				throw new IllegalArgumentException("empty value for required field at column #"+field.getPosition());
-			}
-		}
-	}
+            if (StringUtils.isEmpty(stringValue) && field.isRequired()) {
+                throw new IllegalArgumentException("empty value for required field at column #" + field.getPosition());
+            }
+        }
+    }
 
-	public Contact csvRecordToContact(CSVRecord csvRecord, CSVConfig csvConfig) throws ParseException, IllegalArgumentException {
-		final CSVConfig.Fields cf = csvConfig.getFields();
+    public Contact csvRecordToContact(CSVRecord csvRecord, CSVConfig csvConfig) throws ParseException, IllegalArgumentException {
+        final CSVConfig.Fields cf = csvConfig.getFields();
 
-		Contact contact = new Contact();
+        Contact contact = new Contact();
 
-		contact.setOwner(csvConfig.getOwner());
+        contact.setOwner(csvConfig.getOwner());
 
-		int i;
+        int i;
 
-		if (0 <= (i = cf.getFirstName().getIndex())) {
-			contact.setFirstName(csvRecord.get(i));
-		}
+        if (0 <= (i = cf.getFirstName().getIndex())) {
+            contact.setFirstName(csvRecord.get(i));
+        }
 
-		if (0 <= (i = cf.getLastName().getIndex())) {
-			contact.setLastName(csvRecord.get(i));
-		}
+        if (0 <= (i = cf.getLastName().getIndex())) {
+            contact.setLastName(csvRecord.get(i));
+        }
 
-		if (0 <= (i = cf.getEmail().getIndex())) {
-			contact.setEmail(csvRecord.get(i));
-		}
+        if (0 <= (i = cf.getEmail().getIndex())) {
+            contact.setEmail(csvRecord.get(i));
+        }
 
-		if (0 <= (i = cf.getStreetAddress().getIndex())) {
-			contact.setStreetAddress(csvRecord.get(i));
-		}
+        if (0 <= (i = cf.getStreetAddress().getIndex())) {
+            contact.setStreetAddress(csvRecord.get(i));
+        }
 
-		if (0 <= (i = cf.getZipCode().getIndex())) {
-			contact.setZipCode(Short.valueOf(csvRecord.get(i)));
-		}
+        if (0 <= (i = cf.getZipCode().getIndex())) {
+            contact.setZipCode(Short.valueOf(csvRecord.get(i)));
+        }
 
-		if (0 <= (i = cf.getJoinDate().getIndex())) {
-			Date date = cf.getJoinDate().getDateFormat().parse(csvRecord.get(i));
-			contact.setJoinedDate(date);
-		}
+        if (0 <= (i = cf.getJoinDate().getIndex())) {
+            Date date = cf.getJoinDate().getDateFormat().parse(csvRecord.get(i));
+            contact.setJoinedDate(date);
+        }
 
-		if (0 <= (i = cf.getUuid().getIndex())) {
-			contact.setUuid(UUID.fromString(csvRecord.get(i)));
-		}
+        if (0 <= (i = cf.getUuid().getIndex())) {
+            contact.setUuid(UUID.fromString(csvRecord.get(i)));
+        }
 
-		return contact;
-	}
+        return contact;
+    }
 }

@@ -29,7 +29,7 @@ public class ConfigReader {
 
     public Resource getCustomerResource(String customer) {
         return applicationContext.getResource(
-                "file:"+csvConfigDir + "/" + customer+".csvconfig.yaml");
+                "file:" + csvConfigDir + "/" + customer + ".csvconfig.yaml");
     }
 
     public ObjectMapper getMapper() {

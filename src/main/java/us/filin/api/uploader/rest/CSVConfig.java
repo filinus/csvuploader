@@ -30,14 +30,14 @@ public class CSVConfig {
     @JsonIgnore
     public Field[] allKnownFields() {
         return new Field[]{
-            fields.getFirstName(),
-            fields.getLastName(),
-            fields.getMiddleInitial(),
-            fields.getEmail(),
-            fields.getStreetAddress(),
-            fields.getZipCode(),
-            fields.getJoinDate(),
-            fields.getUuid()
+                fields.getFirstName(),
+                fields.getLastName(),
+                fields.getMiddleInitial(),
+                fields.getEmail(),
+                fields.getStreetAddress(),
+                fields.getZipCode(),
+                fields.getJoinDate(),
+                fields.getUuid()
         };
     }
 

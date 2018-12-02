@@ -8,6 +8,7 @@ public class BadCsvConfigException extends RuntimeException {
     public BadCsvConfigException(String message) {
         super(message);
     }
+
     public BadCsvConfigException(String message, Throwable t) {
         super(message, t);
     }

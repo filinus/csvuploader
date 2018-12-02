@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Data
 @Table(
-    name = "customer"
+        name = "customer"
 )
 public class Customer {
     private static final long serialVersionUID = 1L;

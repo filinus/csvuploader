@@ -63,29 +63,25 @@ public class UploadController {
         try {
             csvConfig = configReader.readConfig(customer);
         } catch (IOException e) {
-            throw new CustomerConfigNotFoundException("The configReader did not read csvConfig for "+customer, e);
+            throw new CustomerConfigNotFoundException("The configReader did not read csvConfig for " + customer, e);
         }
-        if (csvConfig==null) {
+        if (csvConfig == null) {
             throw new CustomerConfigNotFoundException("The configReader did not return a CSVConfig");
         }
         CSVFormat csvFormat = CSVFormat.valueOf(csvConfig.getCsvFormat().name());
 
-        try( // all are closeable resources
-            InputStreamReader inputStreamReader = new InputStreamReader(file.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            CSVParser csvParser = csvFormat.parse(bufferedReader); //BUG hardcode
+        try ( // all are closeable resources
+              InputStreamReader inputStreamReader = new InputStreamReader(file.getInputStream());
+              BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+              CSVParser csvParser = csvFormat.parse(bufferedReader); //BUG hardcode
         ) {
             contactService.upload(csvParser, csvConfig);
-        } catch (ParseException|IllegalArgumentException|IOException e) {
+        } catch (ParseException | IllegalArgumentException | IOException e) {
             throw new BadInputException("Fail to parse using CSVConfig", e);
         }
 
         return new ApiResponse("your csv file uploaded");
     }
-
-
-
-
 
 
 }
