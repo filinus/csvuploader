@@ -17,8 +17,8 @@ curl -F "file=@csvfiles/customer2.csv" [http://localhost:8080/customer/customer2
 
 4. Check content of sqlite database file:   uploader.sqlite3
 
-**  
-Assumptions.**
+
+**Assumptions.**
 
 Beside text of task, my assigner mentioned that this is a few-hours task. (hours! neither days, nor weeks). It’s very serious restrictions, which leads to assumption to extremely simplify code and follow YAGNI principle (you ain’t gonna need it)
 
@@ -63,6 +63,7 @@ For optional field join_date there one more special sub-option language_tag, whi
 
 Sub-option required not implemented for time reason.  
   
+
 **REST app**  
 
 Because this microservice most probably part of bigger project, and it uploads a customer’s resource, it affects to form of the path:  
@@ -85,11 +86,13 @@ GET /customer/{customer}/contact/{id} -- get specific customer’s contact
 
 DELETE /customer/{customer}/contact -- delete specific customer’s contact  
   
+
 **POST  /customer/{customerN}/contact/upload.**
 
 Payload is mulpi-part with field “file” containing the CSV.    
 
 For path customer variable you should have correspond file customerN.csvconfig.yaml in the csvconfigdir. 
+
 
 **Examples of CSVConfigs:**
 
