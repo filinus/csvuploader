@@ -4,18 +4,48 @@
 
 2. Run maven command:    
 
+```bash
 mvn clean compile test spring-boot:run
+```
 
 3. Make your post requests to endpoint: [http://localhost:8080/customer/customer1/contact/upload](http://localhost:8080/customer/customer1/contact/upload)  
   
 
 Example:   
-
+```bash
 curl -F "file=@csvfiles/customer1.csv" [http://localhost:8080/customer/customer1/contact/upload](http://localhost:8080/customer/customer1/contact/upload)  
 
 curl -F "file=@csvfiles/customer2.csv" [http://localhost:8080/customer/customer2/contact/upload](http://localhost:8080/customer/customer2/contact/upload)
+```
+
+```
+Leo:uploader val$ curl -v -F "file=@csvfiles/customer2.csv" http://localhost:8080/customer/customer2/contact/upload
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8080 (#0)
+> POST /customer/customer2/contact/upload HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.54.0
+> Accept: */*
+> Content-Length: 236
+> Expect: 100-continue
+> Content-Type: multipart/form-data; boundary=------------------------085e951994279335
+> 
+< HTTP/1.1 100 
+< HTTP/1.1 200 
+< Content-Type: application/json;charset=UTF-8
+< Transfer-Encoding: chunked
+< Date: Sun, 02 Dec 2018 23:14:10 GMT
+< 
+* Connection #0 to host localhost left intact
+{"message":"your csv file uploaded"}
+```
 
 4. Check content of sqlite database file:   uploader.sqlite3
+
+
+![check screenshot.png](screenshot.png "Look to the Contact table populated from CSV")
+
 
 
 **Assumptions.**
@@ -74,6 +104,7 @@ Sub-option required not implemented for time reason.
 **REST app**  
 
 Because this microservice most probably part of bigger project, and it uploads a customer’s resource, it affects to form of the path:  
+
 _POST /customer/{customer}/contact/upload_  
 
 1. Thus it’s a customer resource  /customer/{customer}/  
@@ -96,47 +127,36 @@ DELETE /customer/{customer}/contact -- delete specific customer’s contact
 
 **POST  /customer/{customerN}/contact/upload.**
 
-Payload is mulpi-part with field “file” containing the CSV.    
+Payload is multi-part with field “file” containing the CSV.    
 
 For path customer variable you should have correspond file customerN.csvconfig.yaml in the csvconfigdir. 
 
 
 **Examples of CSVConfigs:**
 
-**csv_format**: Default
+/csvconfigdir/customer1.csvconfig.yaml
+```yaml
+csv_format: Default
+has_header: yes
+fields:
+  first_name:
+    required: yes
+    position: 1
+  join_date:
+    required: yes
+    position: 2
+    language_tag: en
+```
 
-**has_header**: yes
-
-**fields**:
-
- **first_name**:
-
-   **required**: yes
-
-   **position**: 1
-
- **join_date**:
-
-   **required**: yes
-
-   **position**: 2
-
-   **language_tag**: en
-
-**csv_format**: Excel
-
-**has_header**: no
-
-**fields**:
-
- **first_name**:
-
-   **required**: yes
-
-   **position**: 2
-
- **last_name**:
-
-   **required**: yes
-
-   **position**: 1
+/csvconfigdir/customer2.csvconfig.yaml
+```yaml
+csv_format: Excel
+has_header: no
+fields:
+  first_name:
+    required: yes
+    position: 2
+  last_name:
+    required: yes
+    position: 1
+```
