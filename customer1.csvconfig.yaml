@@ -1,0 +1,16 @@
+csv_format: Default
+has_header: yes
+fields:
+  first_name:
+    required: yes
+    position: 1
+  join_date:
+    required: yes
+    position: 2
+    language_tag: en
+#  middle_initial: n
+#    required: y
+#    position: 1
+
+
+

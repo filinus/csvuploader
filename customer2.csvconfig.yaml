@@ -1,0 +1,12 @@
+csv_format: Excel
+has_header: no
+fields:
+  first_name:
+    required: yes
+    position: 2
+  last_name:
+    required: yes
+    position: 1
+
+
+
