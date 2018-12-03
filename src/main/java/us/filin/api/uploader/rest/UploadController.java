@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
+import java.util.UUID;
 
 @RestController
 @Slf4j
@@ -32,14 +33,11 @@ public class UploadController {
         this.configReader = configReader;
     }
 
-    @GetMapping
-    @RequestMapping("/ping")
-    public ApiResponse ping() {
-        return new ApiResponse();
+    @RequestMapping("/")
+    public String hint() {
+        return "HINT: upload your file using CURL.\n curl -v -F file=@csvfiles/customer2.csv http://localhost:8080/customer/customer2/contact/upload";
     }
 
-
-    @GetMapping
     @RequestMapping("/ex")
     public ApiResponse demoException() {
         throw new CustomerConfigNotFoundException("demo exception");
@@ -47,8 +45,17 @@ public class UploadController {
 
     @GetMapping
     @RequestMapping("/customer/{customer}/contact")
-    public ApiResponse contacts() {
-        return new ApiResponse();
+    public ApiResponse contacts(@PathVariable("customer") String customer) {
+        return new ApiResponse("here we could implement access to customer's contacts resource");
+    }
+
+    @GetMapping
+    @RequestMapping("/customer/{customer}/contact/{uuid}")
+    public ApiResponse contactById(
+            @PathVariable("customer") String customer,
+            @PathVariable("uuid") UUID uuid
+    ) {
+        return new ApiResponse("here we could implement access to customer's contact "+uuid);
     }
 
     @RequestMapping("/customer/{customer}/contact/upload")
